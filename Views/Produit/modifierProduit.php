@@ -1,6 +1,8 @@
 <?php
     include_once '../../Model/Produit.php';
     include_once '../../Controller/ProduitController.php';
+  //  $categorieC=new ProduitController();
+	//$listeCategorie=$categorieC->affichercategories(); 
 
     $error = "";
 
@@ -9,7 +11,6 @@
 
     // create an instance of the controller
     $produitC = new ProduitController();
-    //$listeCategorie=$produitC->affichercategories(); 
     $listeCategorie=$produitC->affichercategories(); 
     if (
        
@@ -23,8 +24,8 @@
            
 			!empty($_POST['nom']) &&
             !empty($_POST["description"]) &&
-            !empty($_POST["prix"]) &&
-            !empty($_POST["CategorieId"])
+            !empty($_POST["prix"]) 
+           // !empty($_POST["CategorieId"])
         ) {
             $produit = new Produit(
 
@@ -34,7 +35,8 @@
                 $_POST['CategorieId'] 
 			
             );
-            $produitC->modifierProduit($produit,$_GET['id'] );
+            $produitC->modifierProduit($produit,$_POST["id"]);
+            header('Location:afficherProduitB.php');
            
         }
         else
@@ -43,8 +45,6 @@
 
     
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -104,13 +104,13 @@
                             </div>
                         </li>
 						<li class="nav-item">
-                            <a class="nav-link active" href="afficherCategorie.php">
+                            <a class="nav-link " href="../Categorie/afficherCategorie.php">
                                 <i class="fa fa-tags"></i>
                                 Categorie
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="afficherProduitB.php">
+                            <a class="nav-link active" href="../produit/afficherProduitB.php">
                                 <i class="fas fa-shopping-cart"></i>
                                 Products
                             </a>
@@ -149,98 +149,104 @@
 
         </nav>
 
-
-
-
-
-
-
-
-
-
-    <body>
-         <hr>
-       
-        <div id="error">
-            <?php echo $error; ?>
-        </div>
-			
-        <?php
-			if (isset($_POST['id'])){
-				$produit = $produitC->recupererProduit($_POST['id']);
-				
-		?>
-
-        
-<div class="container tm-mt-big tm-mb-big">
+        <div class="container tm-mt-big tm-mb-big">
       <div class="row">
         <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
             <div class="row">
               <div class="col-12" style="margin-left:300px">
-                <h2 class="tm-block-title d-inline-block" style="{margin-left:300px}">Update Produit</h2>
+                <h2 class="tm-block-title d-inline-block">Add Product</h2>
               </div>
             </div>
+            <?php
+			if (isset($_POST['id'])){
+				$produit = $produitC->recupererProduit($_POST['id']);
+				
+		?>
+
             <div class="row tm-edit-product-row">
-              <div class="col-xl-12 col-lg-12 col-md-12">
+              <div class="col-xl-12 col-lg-12 col-lg-12">
                 <form action="" class="tm-edit-product-form" method="POST">
-           
-                        <label for="id" >
+                  <div class="form-group lg-12">
+                  <label for="id" >
                         </label>
-                   <input type="text" style="color :transparent ; background:transparent"  name="id" id="id" class="form-control validate" value="<?php echo $categorie['id']; ?>" maxlength="20">
+                   <input type="text" style="color :transparent ; background:transparent"  name="id" id="id" class="form-control validate" value="<?php echo $produit['id']; ?>" maxlength="20">
                 
-                   <div class="form-group lg-12">
+
+
                     <label
                       for="name"
                       >Product Name
                     </label>
-                   <input type="text" name="nom" id="nom" class="form-control validate" value="<?php echo $produit['nom']; ?>" maxlength="20">
-            </div>
+                    <input type="text" name="nom" id="nom" maxlength="20" value="<?php echo $produit['nom']; ?>" class="form-control validate">
 
-            <div class="form-group lg-12">
+                  </div>
+                  <div class="form-group mb-3">
                     <label
                       for="description"
-                      >Prodcut Description
-                    </label>
-                    <input type="text" name="description" id="description" class="form-control validate" value="<?php echo $produit['description']; ?>" maxlength="20">
-           
-            </div>         
-            
-            <div class="form-group lg-12">
+                      >Description
+                      </label>
+
+                    <input type="text" name="description" id="description" maxlength="20" value="<?php echo $produit['description']; ?>"  class="form-control validate"></textarea>
+
+                  </div>
+
+                  <div class="form-group mb-3">
                     <label
                       for="prix"
-                      >Product Price
-                    </label>
-                    <input type="text" name="prix" id="prix" class="form-control validate" value="<?php echo $produit['prix']; ?>" maxlength="20">
-           
-            </div> 
+                      >Price
+                      </label>
 
-            <div class="form-group lg-12">
+                    <input type="text" name="prix" id="prix" maxlength="20" value="<?php echo $produit['prix']; ?>" class="form-control validate"></textarea>
+
+                  </div>
+
+                  <div class="form-group lg-12">
                     <label
-                      for="prix"
-                      >Prodcut Category
+                      for="Categorie"
+                      >Category 
                     </label>
-                 
-                    <?php   foreach($listeCategorie as $categorie){
-                      ?>
+                
 
-                     <div>
-                     <input type="checkbox" class="form-check-input" id="CategorieId" name="CategorieId" value="1">
-                      <label for="inventariable" class="form-check-label"><?php echo $categorie['nom']; ?></label>
-                       <br>
-                    </div>
-                    <?php } ?>
+                <select name="CategorieId" id="" class="form-control validate">
+                       
+                     <?php   foreach($listeCategorie as $categorie){
+			        ?>
+ 
+                        <option value="<?php echo $categorie['id']; ?>" name="CategorieId" id=""><?php echo $categorie['nom']; ?></option>
+                       
+                       
+                        <?php } ?>
+                    
+                </select>
 
 
-            </div> 
+                  </div>
             
-            <br> <div class="col-12">
-                <input type="submit" class="btn btn-primary btn-block text-uppercase" value="Update Category Now"></button>
+                
+                  
               </div>
-            </form>
+             
+              <div class="col-12">
+                 
+                <input type="submit" href="afficherProduitB.php"class="btn btn-primary btn-block text-uppercase" value="Update Product Now" ></input>
           
-		<?php
-		}
-		?>
+            </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+<?php } ?>
+
+
+
+    
+
     </body>
 </html>

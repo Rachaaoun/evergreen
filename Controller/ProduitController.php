@@ -100,7 +100,7 @@
 			}
 		}
 		
-		function modifierProduit($produit){
+		function modifierProduit($produit, $id){
 			try {
 				$db = config::getConnexion();
 			
