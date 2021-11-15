@@ -30,6 +30,24 @@
 				die('Erreur:'. $e->getMeesage());
 			}
 		}
+
+		function afficherProduitsParCategorie($CategorieId){
+			$sql="SELECT * FROM produit where CategorieId=$CategorieId";
+			
+			$db = config::getConnexion();
+
+			try{
+				$liste = $db->query($sql);
+				return $liste;
+			}
+			catch(Exception $e){
+				die('Erreur:'. $e->getMeesage());
+			}
+		}
+
+
+
+
 		function supprimerProduit($id){
 			$sql="DELETE FROM produit WHERE id=:id";
 			$db = config::getConnexion();
@@ -86,13 +104,14 @@
 				$db = config::getConnexion();
 			
 
-				$sql="UPDATE produit SET nom= :nom,description= :description,prix= :prix WHERE id= :id";
+				$sql="UPDATE produit SET nom= :nom,description= :description,prix= :prix,CategorieId= :CategorieId WHERE id= :id";
 			    $db = config::getConnexion();
 				$req=$db->prepare($sql);
 				$req->bindValue(':nom', $produit->getNom());
 				$req->bindValue(':id', $id);
 				$req->bindValue(':description', $produit->getDescription());
                 $req->bindValue(':prix', $produit->getPrix());
+				$req->bindValue(':CategorieId', $produit->getCategorie());
 				$req->execute();
 			//	echo $query->rowCount() . " records UPDATED successfully <br>";
 			} catch (PDOException $e) {

@@ -63,13 +63,13 @@
                             </div>
                         </li>
 						<li class="nav-item">
-                            <a class="nav-link active" href="../categorie/afficherCategorie.php">
+                            <a class="nav-link " href="../categorie/afficherCategorie.php">
                                 <i class="fa fa-tags"></i>
                                 Categorie
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="afficherProduitB.php">
+                            <a class="nav-link active" href="afficherProduitB.php">
                                 <i class="fas fa-shopping-cart"></i>
                                 Products
                             </a>

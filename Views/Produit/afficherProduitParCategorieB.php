@@ -1,8 +1,7 @@
 <?php
-	include '../../Controller/CategorieController.php';
-	$categorieC=new CategorieController();
-	$listeCategorie=$categorieC->afficherCategories(); 
-    
+	include '../../Controller/ProduitController.php';
+	$produitC=new ProduitController();
+	$listeProduit=$produitC->afficherProduitsParCategorie($_GET["CategorieId"]); 
 ?>
 
 
@@ -64,13 +63,13 @@
                             </div>
                         </li>
 						<li class="nav-item">
-                            <a class="nav-link active" href="afficherCategorie.php">
+                            <a class="nav-link " href="../categorie/afficherCategorie.php">
                                 <i class="fa fa-tags"></i>
                                 Categorie
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../produit/afficherProduitB.php">
+                            <a class="nav-link active" href="afficherProduitB.php">
                                 <i class="fas fa-shopping-cart"></i>
                                 Products
                             </a>
@@ -119,36 +118,33 @@
                 <thead>
                   <tr>
                     <th scope="col">&nbsp;</th>
-                    <th scope="col">Category NAME</th>
+                    <th scope="col">Product Name</th>
                     <th scope="col" style="{position:center;}">Description</th>
+                    <th scope="col">Price</th>
                     <th scope="col">ID</th>
-                   
+                    <th scope="col">Category ID</th>
                   </tr>
                 </thead>
                 <tbody>
 				<?php
-				foreach($listeCategorie as $categorie){
+				foreach($listeProduit as $produit){
 			?>
                   <tr>
                     <th scope="row"><input type="checkbox" /></th>
-                    <td class="tm-product-name"><?php echo $categorie['nom']; ?></td>
-                    <td><?php echo $categorie['description']; ?></td>
-                    <td><?php echo $categorie['id']; ?></td>
+                    <td class="tm-product-name"><?php echo $produit['nom']; ?></td>
+                    <td><?php echo $produit['description']; ?></td>
+                    <td><?php echo $produit['prix']; ?></td>
+                    <td><?php echo $produit['id']; ?></td>
+                    <td><?php echo $produit['CategorieId']; ?></td>
                     
                     <td>
-					<form method="POST" action="modifierCategorie.php">
+					<form method="POST" action="modifierProduit.php">
 						<input type="submit" name="Modifier" value="Modifier" class="btn btn-primary btn-block text-uppercase sm-1">
-						<input type="hidden" value=<?PHP echo $categorie['id']; ?> name="id">
+						<input type="hidden" value=<?PHP echo $produit['id']; ?> name="id">
 					</form>
 				</td>
-                <td>
-                <form method="POST" action="../Produit/afficherProduitParCategorieB.php?CategorieId=<?php echo $categorie['id']; ?>">
-						<input type="submit" name="CategorieId" value="afficher les produits " class="btn btn-primary btn-block text-uppercase sm-1">
-						<input type="hidden" value=<?PHP echo $categorie['id']; ?> name="CategorieId">
-					</form>
-                </td>
 				<td>
-				<a href="supprimerCategorie.php?id=<?php echo $categorie['id']; ?>"  class="tm-product-delete-link" >
+				<a href="supprimerProduit.php?id=<?php echo $produit['id']; ?>"  class="tm-product-delete-link" >
 				<i class="far fa-trash-alt tm-product-delete-icon"></i>
 			</a>
 			
@@ -167,8 +163,8 @@
             </div>
             <!-- table container -->
 			<a
-              href="ajouterCategorie.php"
-              class="btn btn-primary btn-block text-uppercase mb-3">Add new category</a>
+              href="ajouterProduit.php"
+              class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>
 
 
 
@@ -176,15 +172,15 @@
 
 
 
-    <script src="../Back/js/jquery-3.3.1.min.js"></script>
+    <script src="../Back/Front/js/jquery-3.3.1.min.js"></script>
     <!-- https://jquery.com/download/ -->
-    <script src="../Back/js/moment.min.js"></script>
+    <script src="../Back/Front/js/moment.min.js"></script>
     <!-- https://momentjs.com/ -->
-    <script src="../Back/js/Chart.min.js"></script>
+    <script src="../Back/Front/js/Chart.min.js"></script>
     <!-- http://www.chartjs.org/docs/latest/ -->
-    <script src="../Back/js/bootstrap.min.js"></script>
+    <script src="../Back/Front/js/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
-    <script src="../Back/js/tooplate-scripts.js"></script>
+    <script src="../Back/Front/js/tooplate-scripts.js"></script>
     <script>
         Chart.defaults.global.defaultFontColor = 'white';
         let ctxLine,

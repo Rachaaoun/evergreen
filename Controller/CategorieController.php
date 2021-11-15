@@ -57,6 +57,23 @@
 				die('Erreur: '.$e->getMessage());
 			}
 		}
+
+		function afficherProduitsParCategorie($Categorie){
+			$sql="SELECT * FROM produit where CategorieId= :CategorieId";
+			
+			$db = config::getConnexion();
+			$req=$db->prepare($sql);
+				$req->bindValue(':CategorieId', $categorie->getId());
+				$req->execute();
+
+			try{
+				$liste = $db->query($sql);
+				return $liste;
+			}
+			catch(Exception $e){
+				die('Erreur:'. $e->getMeesage());
+			}
+		}
 		
 		function modifierCategorie($categorie, $id){
 			try {
