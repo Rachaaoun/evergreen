@@ -200,7 +200,7 @@
                      <?php   foreach($listeCategorie as $categorie){
 			        ?>
  
-                        <option value="<?php  $categorie['id']; ?>" name="CategorieId" id=""><?php echo $categorie['nom']; ?></option>
+                        <option value="<?php echo $categorie['id']; ?>" name="CategorieId" id=""><?php echo $categorie['nom']; ?></option>
                        
                        
                         <?php } ?>

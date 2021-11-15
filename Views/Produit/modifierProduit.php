@@ -10,6 +10,7 @@
     // create an instance of the controller
     $produitC = new ProduitController();
     //$listeCategorie=$produitC->affichercategories(); 
+    $listeCategorie=$produitC->affichercategories(); 
     if (
        
 		isset($_POST["nom"]) &&		
@@ -22,8 +23,8 @@
            
 			!empty($_POST['nom']) &&
             !empty($_POST["description"]) &&
-            !empty($_POST["prix"]) 
-           // !empty($_POST["CategorieId"])
+            !empty($_POST["prix"]) &&
+            !empty($_POST["CategorieId"])
         ) {
             $produit = new Produit(
 
@@ -33,7 +34,7 @@
                 $_POST['CategorieId'] 
 			
             );
-            $produitC->modifierProduit($produit,$_POST['CategorieId'] );
+            $produitC->modifierProduit($produit,$_GET['id'] );
            
         }
         else
@@ -159,7 +160,7 @@
 
     <body>
          <hr>
-        
+       
         <div id="error">
             <?php echo $error; ?>
         </div>
@@ -208,7 +209,7 @@
             <div class="form-group lg-12">
                     <label
                       for="prix"
-                      >Prodcut Price
+                      >Product Price
                     </label>
                     <input type="text" name="prix" id="prix" class="form-control validate" value="<?php echo $produit['prix']; ?>" maxlength="20">
            
@@ -219,8 +220,18 @@
                       for="prix"
                       >Prodcut Category
                     </label>
-                    <input type="text" name="CategorieId" id="CategorieId" class="form-control validate" value="<?php echo $produit['CategorieId']; ?>" maxlength="20">
-           
+                 
+                    <?php   foreach($listeCategorie as $categorie){
+                      ?>
+
+                     <div>
+                     <input type="checkbox" class="form-check-input" id="CategorieId" name="CategorieId" value="1">
+                      <label for="inventariable" class="form-check-label"><?php echo $categorie['nom']; ?></label>
+                       <br>
+                    </div>
+                    <?php } ?>
+
+
             </div> 
             
             <br> <div class="col-12">

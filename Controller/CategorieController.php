@@ -38,6 +38,7 @@
 					'description' => $categorie->getDescription()
 					
 				]);			
+				header('Location: afficherCategorie.php');
 			}
 			catch (Exception $e){
 				echo 'Erreur: '.$e->getMessage();

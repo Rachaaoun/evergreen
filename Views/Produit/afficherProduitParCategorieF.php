@@ -1,8 +1,9 @@
 <?php
-	include '..\..\Controller\CategorieController.php';
-	$categorieC=new CategorieController();
-	$listeCategorie=$categorieC->affichercategories(); 
+	include '../../Controller/ProduitController.php';
+	$produitC=new ProduitController();
+	$listeProduit=$produitC->afficherProduitsParCategorie($_GET["CategorieId"]); 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -89,73 +90,73 @@
 	  </nav>
     <!-- END nav -->
 
-    <div class="hero-wrap hero-bread" style="background-image: url('../Front/images/p9.png');">
+    <div class="hero-wrap hero-bread" style="background-image: url('../Front/images/p6.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-            <h1 class="mb-0 bread">Categories</h1>
+            <h1 class="mb-0 bread">Products</h1>
           </div>
         </div>
       </div>
     </div>
  <br><br><br>
+ <section class="ftco-section">
+    	<div class="container">
+    		<div class="row justify-content-center">
+    			<div class="col-md-10 mb-5 text-center">
+    				<ul class="product-category">
+    					<li><a href="#" class="active">Products</a></li>
+    					
+    				</ul>
+    			</div>
+    		</div>
+    		<div class="row">
+            <?php
+				foreach($listeProduit as $produit){
+			?>
+            <div class="col-md-6 col-lg-3 ftco-animate">
+          
+    				<div class="product">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="../Front/images/p1indoor.jpg" alt="Colorlib Template">
+    						<span class="status">30%</span>
+    						<div class="overlay"></div>
+    					</a>
+    					<div class="text py-3 pb-4 px-3 text-center">
+    						<h3><a href="#"><?php echo $produit['nom']; ?></a></h3>
+    						<div class="d-flex">
+    							<div class="pricing">
+		    						<p class="price"><span class="mr-2 price-dc"><?php echo $produit['prix']; ?></span><span class="price-sale"><?php echo $produit['prix']; ?></span></p>
+		    					</div>
+	    					</div>
+	    					<div class="bottom-area d-flex px-3">
+	    						<div class="m-auto d-flex">
+	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+	    								<span><i class="ion-ios-menu"></i></span>
+	    							</a>
+	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    								<span><i class="ion-ios-cart"></i></span>
+	    							</a>
+	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
+	    								<span><i class="ion-ios-heart"></i></span>
+	    							</a>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+                    </div>
+				  <?php
+				}
+			?>
+    		
 
-<div class="container">
- <div class="card-deck">
-						 <?php
-							foreach($listeCategorie as $categorie){
-						?>	
-  <div class="card text-white bg-primary mb-9">
-    
-    <div class="card-body">
-      <h5 class="card-title"><a href="../Produit/afficherProduitParCategorieF.php?CategorieId=<?php echo $categorie['id']; ?>" style="color:white"> <?php echo $categorie['nom']; ?></a></h5>
-      <p class="card-text" style="color:orange"><?php echo $categorie['description']; ?></p>
-      <p class="card-text"><small class="text-muted"></small></p>
-    </div>
-  </div>
+ 	
+                 
+             
 
 
-							<?php } ?>
- 
-  
-</div>
-</div>
 
 </br><br><br>
-		<section class="ftco-section ftco-category ftco-no-pt">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-8">
-						<div class="row">
-							<div class="col-md-6 order-md-last align-items-stretch d-flex">
-								<div class="category-wrap-2 ftco-animate img align-self-stretch d-flex" style="background-image: url(../Front/images/p6outdoor.jpg);">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(../Front/images/p8indoor.jpg);">
-									<div class="text px-3 py-1">
-										<h2 class="mb-0"><a href="#">Indoor plants</a></h2>
-									</div>
-								</div>
-								<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(../Front/images/p10outdoor.jpg);">
-						
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-4">
-						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(../Front/images/p9outdoor.jpg);">
-							<div class="text px-3 py-1">
-								<h2 class="mb-0"><a href="#">Outdoor plants</a></h2>
-							</div>
-						</div>
-						<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(../Front/images/p1indoor.jpg);">
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+		
 
     <section class="ftco-section">
     	<div class="container">

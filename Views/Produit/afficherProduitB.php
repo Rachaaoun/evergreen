@@ -138,7 +138,7 @@
                     <td><?php echo $produit['CategorieId']; ?></td>
                     
                     <td>
-					<form method="POST" action="modifierProduit.php">
+					<form method="POST" action="modifierProduit.php?id=<?php echo $produit['CategorieId']; ?>">
 						<input type="submit" name="Modifier" value="Modifier" class="btn btn-primary btn-block text-uppercase sm-1">
 						<input type="hidden" value=<?PHP echo $produit['id']; ?> name="id">
 					</form>

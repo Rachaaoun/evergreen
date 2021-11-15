@@ -69,7 +69,7 @@
 			VALUES (:nom,:description,:prix,:CategorieId)";
 			$db = config::getConnexion();
 			try{
-				//$liste = $db->query($sql);
+				
 				$query = $db->prepare($sql);
 				$query->execute([
 					'nom' => $produit->getNom(),
@@ -77,7 +77,8 @@
 					'prix' => $produit->getPrix(),
 					'CategorieId' => $produit->getCategorie(),
 				]);	
-				//return $liste;		
+				header('Location: afficherProduitB.php');
+				
 			}
 			catch (Exception $e){
 				echo 'Erreur: '.$e->getMessage();
@@ -99,7 +100,7 @@
 			}
 		}
 		
-		function modifierProduit($produit, $id){
+		function modifierProduit($produit){
 			try {
 				$db = config::getConnexion();
 			
